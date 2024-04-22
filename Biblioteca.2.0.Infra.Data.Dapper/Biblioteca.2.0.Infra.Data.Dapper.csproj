@@ -1,0 +1,15 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net7.0</TargetFramework>
+    <RootNamespace>Biblioteca._2._0.Infra.Data.Dapper</RootNamespace>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Biblioteca.2.0.Domain.Core\Biblioteca.2.0.Domain.Core.csproj" />
+    <ProjectReference Include="..\Biblioteca.2.0.Domain\Biblioteca.2.0.Domain.csproj" />
+  </ItemGroup>
+
+</Project>

@@ -1,0 +1,24 @@
+trigger:
+  - master
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+jobs:
+- job: CopyCommitToAnotherBranch
+  displayName: 'Copy Commit to Another Branch'
+  steps:
+  - checkout: self
+
+  - script: |
+      export COMMIT_HASH=$(Build.SourceVersion)
+      echo "Commit Hash: $COMMIT_HASH"
+    displayName: 'Set Commit Hash'
+
+  - script: |
+      git checkout -b mastersecundaria
+      git remote set-url origin https://RM351457:smdgkxhlh5zczwo2q3d45dbo7sn7rab44veokmrmivjjolbl6cgq@dev.azure.com/RM351457/projeto-devops/_git/Biblioteca.2.0
+      git pull origin mastersecundaria --rebase
+      git cherry-pick $COMMIT_HASH
+      git push origin mastersecundaria
+    displayName: 'Create, Pull, Cherry Pick, and Push to Destination Branch'

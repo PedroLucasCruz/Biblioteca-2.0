@@ -27,3 +27,18 @@ Sistema de gerenciamento de biblioteca desenvolvido como parte da pós-graduaç�
 1. Clone o repositório:
    ```bash
    git clone https://github.com/PedroLucasCruz/Biblioteca-2.0.git
+
+
+- Configure a string de conexão com o banco de dados no arquivo appsettings.json.
+- Execute as migrações para criar o banco de dados.
+- Inicie a aplicação:
+
+dotnet run --project Biblioteca.2.0.Client
+
+
+## Contribuições Futuras
+# Implementação de testes automatizados.
+
+- Adição de autenticação e autorização.
+- Documentação da API com Swagger.
+- Containerização com Docker.

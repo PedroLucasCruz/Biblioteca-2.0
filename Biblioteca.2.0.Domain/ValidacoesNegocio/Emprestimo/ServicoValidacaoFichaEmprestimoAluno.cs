@@ -1,25 +1,18 @@
-﻿
+﻿//using FluentValidation;
 //using Biblioteca._2._0.Domain.Entidades;
+//using Biblioteca._2._0.Domain.Enumeradores.FichaEmprestimoAlunos;
+//using Biblioteca._2._0.Domain.Interfaces.Repositories.Base;
+//using Biblioteca._2._0.Extension.BaseValidacoes;
 //using Biblioteca._2._0.Extension.Utils;
+//using Biblioteca._2._0.Extension.Enumerable.TipoValidacaoEnum;
 //using FluentValidation;
 
-
-//namespace Biblioteca._2._0.Domain.ValidacoesNegocio.Emprestimo
+//namespace Biblioteca._2._0.Domain.ValidacoesNegocio.EmprestimoAlunos
 //{
-//    public class ServicoValidacaoFichaEmprestimoAluno : FichaEmprestimoAlunoValidador
+//    public class ServicoValidacaoFichaEmprestimoAluno 
 //    {
 
-//        private ApplicationDbContext _Contexto;
-
-//        private ApplicationDbContext Contexto
-//        {
-//            get
-//            {
-//                _Contexto = ApplicationDbContext.NovaInstancia();
-
-//                return _Contexto;
-//            }
-//        }
+       
 
 
 //        public ServicoValidacaoFichaEmprestimoAluno()
@@ -30,19 +23,19 @@
 
 //        public InconsistenciaDeValidacaoTipado<FichaEmprestimoAluno> ValideFichaCadastro(FichaEmprestimoAluno dados)
 //        {
-//            AssineRegrasIniciaisCadastro(dados);
+//           // AssineRegrasIniciaisCadastro(dados);
 //            AssineRegraDeQuantidadeDeLivrosDisponiveis(dados);
 //            AssineRegraDeEmprestimoEmAndamento(dados);
 
 //            return base.ValideTipado(dados);
 //        }
 
-//        public override InconsistenciaDeValidacaoTipado<FichaEmprestimoAluno> ValideFinalizacaoFicha(FichaEmprestimoAluno dados)
-//        {
-//            AssineRegrasIniciaisFinalizacao(dados);
+//        //public override InconsistenciaDeValidacaoTipado<FichaEmprestimoAluno> ValideFinalizacaoFicha(FichaEmprestimoAluno dados)
+//        //{
+//        //    AssineRegrasIniciaisFinalizacao(dados);
 
-//            return base.ValideTipado(dados);
-//        }
+//        //    return base.ValideTipado(dados);
+//        //}
 
 
 
@@ -53,13 +46,14 @@
 
 //            if (dados.FichaEmprestimoItens.PossuiValor() && dados.FichaEmprestimoItens.PossuiLinhas())
 //            {
+           
 //                RuleForEach(x => x.FichaEmprestimoItens).Cascade(CascadeMode.Continue).ChildRules(v =>
 //                {
 
 //                    v.RuleFor(x => x)
 //                     .Must(x => LivroPossuiQuantidadePositiva(x.LivroId, x.Quantidade))
 //                     .When(x => x.Quantidade > 0)
-//                     .TipoValidacao(Negocio.Enumeradores.Validacoes.TipoValidacaoEnum.IMPEDITIVA)
+//                     .TipoValidacao(TipoValidacaoEnum.IMPEDITIVA)
 //                     .SobrescrevaPropriedade("Saldo do Livro")
 //                     .WithMessage("O Livro está sem saldo para emprestimo.");
 
@@ -93,7 +87,7 @@
 //            {
 //                var livros = repLivro.ObtenhaDbSet().AsNoTracking().ToList();
 
-//                quantidadeTotalLivro = livros.PossuiValor() && livros.Any(x => x.Id == LivroId)
+//                quantidadeTotalLivro = (livros.PossuiValor() && livros.Any(x => x.Id == LivroId))
 //                    ? livros.Where(x => x.Id == LivroId).First().QuantidadeEstoque : 0;
 //            }
 

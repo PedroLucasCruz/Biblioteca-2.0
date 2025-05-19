@@ -15,12 +15,12 @@ namespace Biblioteca._2._0.Application.AppService
         {
            if (!dto.IsValid()) return dto.RetornarInconsistencia();
 
-          return  _servicoEditora.Atualizar(dto.ObterEntidade());
+           return  _servicoEditora.Atualizar(dto.ObterEntidade());
         }
 
         public InconsistenciaDeValidacao Cadastrar(CadastroEditoraDto dto)
         {
-            if (!dto.IsValid()) return dto.RetornarInconsistencia();
+           if (!dto.IsValid()) return dto.RetornarInconsistencia();
 
            return _servicoEditora.Cadastrar(dto.ObterEntidade());
         }

@@ -13,7 +13,7 @@ using System.Threading.Tasks;
 
 namespace Biblioteca._2._0.Application.Validacoes
 {
-    public class FichaEmprestimoAlunoValidador : ValidadorAbstratro<FichaEmprestimoAlunoDto>
+    public class FichaEmprestimoAlunoValidador : ValidadorAbstratro<FichaEmprestimoAluno>
     {
         public FichaEmprestimoAlunoValidador()
         {
@@ -21,14 +21,14 @@ namespace Biblioteca._2._0.Application.Validacoes
         }
 
 
-        public InconsistenciaDeValidacaoTipado<FichaEmprestimoAlunoDto> ValideCadastroFicha(FichaEmprestimoAlunoDto dados)
+        public InconsistenciaDeValidacaoTipado<FichaEmprestimoAluno> ValideCadastroFicha(FichaEmprestimoAlunoDto dados)
         {
             AssineRegrasCamposObrigatorios(dados);
             AssineRegrasDeCadastroDaFicha();
             return base.ValideTipado(dados);
         }
 
-        public virtual InconsistenciaDeValidacaoTipado<FichaEmprestimoAlunoDto> ValideFinalizacaoFicha(FichaEmprestimoAlunoDto dados)
+        public virtual InconsistenciaDeValidacaoTipado<FichaEmprestimoAluno> ValideFinalizacaoFicha(FichaEmprestimoAlunoDto dados)
         {
             AssineRegrasCamposObrigatorios(dados);
            // AssineRegraDeFinalizacaoDaFicha(dados);
@@ -36,20 +36,20 @@ namespace Biblioteca._2._0.Application.Validacoes
             return base.ValideTipado(dados);
         }
 
-        protected void AssineRegrasIniciaisCadastro(FichaEmprestimoAlunoDto dados)
+        protected void AssineRegrasIniciaisCadastro(FichaEmprestimoAluno dados)
         {
             AssineRegrasCamposObrigatorios(dados);
             AssineRegrasDeCadastroDaFicha();
         }
 
 
-        protected void AssineRegrasIniciaisFinalizacao(FichaEmprestimoAlunoDto dados)
+        protected void AssineRegrasIniciaisFinalizacao(FichaEmprestimoAluno dados)
         {
             AssineRegrasCamposObrigatorios(dados);
            // AssineRegraDeFinalizacaoDaFicha(dados);
         }
 
-        private void AssineRegrasCamposObrigatorios(FichaEmprestimoAlunoDto dados)
+        private void AssineRegrasCamposObrigatorios(FichaEmprestimoAluno dados)
         {
 
             RuleFor(x => x.AlunoId)

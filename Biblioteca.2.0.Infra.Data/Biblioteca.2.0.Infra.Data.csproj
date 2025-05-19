@@ -15,10 +15,13 @@
   <ItemGroup>
     <Folder Include="Configurations\" />
     <Folder Include="Mappings\" />
+    <Folder Include="Seguranca\JWT\Interfaces\" />
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.14" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="8.0.0" />
+    <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="8.0.1" />
   </ItemGroup>
 
 </Project>

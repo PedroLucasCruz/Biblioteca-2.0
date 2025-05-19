@@ -3,6 +3,8 @@ using Biblioteca._2._0.Domain.Entidades;
 using Biblioteca._2._0.Domain.Interfaces.Repositories;
 using Biblioteca._2._0.Extension.BaseValidacoes;
 using Biblioteca._2._0.Extension.Enumerable;
+using Biblioteca._2._0.Extension.Enumerable.TipoValidacaoEnum;
+using Biblioteca._2._0.Extension.Utils;
 using FluentValidation;
 
 
@@ -16,7 +18,7 @@ namespace Biblioteca._2._0.Domain.ValidacoesNegocio.Livros
         private IAutorRepositorio _autorRepositorio;
         private IEditoraRepositorio _editoraRepositorio;
 
-   
+        
 
         public ServicoLivroValidador()
         {

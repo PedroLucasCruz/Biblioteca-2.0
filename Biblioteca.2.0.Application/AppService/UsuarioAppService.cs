@@ -3,6 +3,7 @@ using Biblioteca._2._0.Application.IntefacesAppService;
 using Biblioteca._2._0.Domain.Entidades;
 using Biblioteca._2._0.Domain.Interfaces.Service;
 using Biblioteca._2._0.Extension.BaseValidacoes;
+using Biblioteca.Negocio.Validacoes.Usuarios;
 
 
 namespace Biblioteca._2._0.Application.AppService
@@ -23,13 +24,16 @@ namespace Biblioteca._2._0.Application.AppService
             return _servicoUsuario.AtualizeUsuario(obj.ObterEntidade());
         }
 
-        public bool AutentiqueUsuario(UsuarioDto obj)
+        public InconsistenciaDeValidacaoTipado<Usuario> AutentiqueUsuario(UsuarioAutDto obj)
         {
+            if (!obj.IsValid()) return obj.RetornarInconsistencia();
             return _servicoUsuario.AutentiqueUsuario(obj.ObterEntidade());
         }
 
-        public Usuario Cadastrar(UsuarioDto obj)
+        public InconsistenciaDeValidacaoTipado<Usuario> Cadastrar(UsuarioDto obj)
         {
+            if (!obj.IsValid()) return obj.RetornarInconsistencia();
+
             return _servicoUsuario.Cadastrar(obj.ObterEntidade());
         }
 
@@ -46,6 +50,11 @@ namespace Biblioteca._2._0.Application.AppService
         public InconsistenciaDeValidacaoTipado<Usuario> ObterUsuarioId(int id)
         {
           return _servicoUsuario.ObterUsuarioId(id);
+        }
+
+        public string RenoveToken(string token)
+        {
+          return _servicoUsuario.RenoveToken(token);
         }
     }
 }

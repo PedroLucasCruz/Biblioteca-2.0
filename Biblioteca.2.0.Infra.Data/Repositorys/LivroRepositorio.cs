@@ -2,11 +2,7 @@
 using Biblioteca._2._0.Domain.Interfaces.Repositories;
 using Biblioteca._2._0.Infra.Data.Context;
 using Biblioteca._2._0.Infra.Data.Repositorys.Base;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 
 namespace Biblioteca._2._0.Infra.Data.Repositorys
 {
@@ -16,6 +12,7 @@ namespace Biblioteca._2._0.Infra.Data.Repositorys
         {
 
         }
+
         public void CadastrarLivros(IList<Livro> livros)
         {
             foreach (var livro in livros)
@@ -31,6 +28,11 @@ namespace Biblioteca._2._0.Infra.Data.Repositorys
         public Livro ConsultarLivroPorIdEditar(int idEditora)
         {
             return _DbSet.Where(x => x.EditoraId == idEditora).FirstOrDefault();
+        }
+
+        public List<Livro> RetornarLivrosComAutores()
+        {
+          return ObtenhaDbSet().Include(x => x.Editora).Include(a => a.Autores).ToList();
         }
     }
 }

@@ -5,16 +5,12 @@ namespace Biblioteca._2._0.Domain.Interfaces.Service
 {
     public interface IServicoUsuario
     {
-        Usuario Cadastrar(Usuario obj);
-
+        InconsistenciaDeValidacaoTipado<Usuario> Cadastrar(Usuario obj);
         InconsistenciaDeValidacaoTipado<IList<Usuario>> ObtenhaTodosUsuarios();
-
         Usuario AtualizeUsuario(Usuario obj);
-
         InconsistenciaDeValidacao DeleteUsuario(int id);
-
-        bool AutentiqueUsuario(Usuario obj);
-
+        InconsistenciaDeValidacaoTipado<Usuario> AutentiqueUsuario(Usuario obj);
         InconsistenciaDeValidacaoTipado<Usuario> ObterUsuarioId(int id);
+        string RenoveToken(string token);
     }
 }

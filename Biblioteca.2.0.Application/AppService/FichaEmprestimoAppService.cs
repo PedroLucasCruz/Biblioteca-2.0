@@ -5,6 +5,7 @@ using Biblioteca._2._0.Application.IntefacesAppService;
 using Biblioteca._2._0.Domain.Entidades;
 using Biblioteca._2._0.Domain.Enumeradores.FichaEmprestimoAlunos;
 using Biblioteca._2._0.Domain.Interfaces.Service;
+using Biblioteca._2._0.Domain.Services;
 using Biblioteca._2._0.Extension.BaseValidacoes;
 
 namespace Biblioteca._2._0.Application.AppService
@@ -18,31 +19,33 @@ namespace Biblioteca._2._0.Application.AppService
             _servicoFichaEmprestimoAluno = servicoFichaEmprestimoAluno;
         }
 
-        public InconsistenciaDeValidacaoTipado<FichaEmprestimoAluno> CadastreFicha(FichaEmprestimoAlunoDto dados)
-        {
+        public InconsistenciaDeValidacaoTipado<FichaEmprestimoAluno> CadastreFicha(FichaEmprestimoAlunoDto dto)
+        { 
+ 
+            if (!dto.IsValid()) return dto.RetornarInconsistencia();
 
-          return  _servicoFichaEmprestimoAluno.CadastreFicha(dados);
-
+            return _servicoFichaEmprestimoAluno.CadastreFicha(dto.ObterEntidade());
+            
         }
 
         public InconsistenciaDeValidacaoTipado<FichaEmprestimoAluno> ExcluaFicha(int FihaId)
-        {
-            throw new NotImplementedException();
+        {           
+            return _servicoFichaEmprestimoAluno.ExcluaFicha(FihaId);
         }
 
         public InconsistenciaDeValidacaoTipado<FichaEmprestimoAluno> ExecuteEntregaDeLivro(int FichaId, int LivroId)
         {
-            throw new NotImplementedException();
+           return _servicoFichaEmprestimoAluno.ExecuteEntregaDeLivro(FichaId, LivroId);
         }
 
         public InconsistenciaDeValidacaoTipado<FichaEmprestimoAluno> FinalizeFicha(FichaEmprestimoAluno dados)
         {
-            throw new NotImplementedException();
+            return _servicoFichaEmprestimoAluno.FinalizeFicha(dados);
         }
 
         public FichaEmprestimoAluno ObtenhaFichaPorCodigo(int FichaId)
         {
-            throw new NotImplementedException();
+            return _servicoFichaEmprestimoAluno.ObtenhaFichaPorCodigo(FichaId);
         }
 
         public IList<FichaEmprestimoAluno> ObtenhaFichasDoAlunoPorCodigo(int AlunoId, int limiteRegistros)

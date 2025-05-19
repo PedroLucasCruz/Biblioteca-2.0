@@ -11,7 +11,7 @@ namespace Biblioteca._2._0.Application.IntefacesAppService
 {
     public interface IUsuarioAppService
     {
-        Usuario Cadastrar(UsuarioDto obj);
+        InconsistenciaDeValidacaoTipado<Usuario> Cadastrar(UsuarioDto obj);
 
         InconsistenciaDeValidacaoTipado<IList<Usuario>> ObtenhaTodosUsuarios();
 
@@ -19,9 +19,11 @@ namespace Biblioteca._2._0.Application.IntefacesAppService
 
         InconsistenciaDeValidacao DeleteUsuario(int Id);
 
-        bool AutentiqueUsuario(UsuarioDto obj);
+        InconsistenciaDeValidacaoTipado<Usuario> AutentiqueUsuario(UsuarioAutDto obj);
 
         InconsistenciaDeValidacaoTipado<Usuario> ObterUsuarioId(int id);
+
+        string RenoveToken(string token);
     }
 }
 

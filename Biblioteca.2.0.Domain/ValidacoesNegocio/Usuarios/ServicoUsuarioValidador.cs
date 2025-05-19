@@ -1,5 +1,8 @@
-﻿using Biblioteca._2._0.Extension.BaseValidacoes;
-
+﻿using Biblioteca._2._0.Domain.Entidades;
+using Biblioteca._2._0.Domain.Interfaces.Repositories;
+using Biblioteca._2._0.Extension.BaseValidacoes;
+using Biblioteca._2._0.Extension.Enumerable.TipoValidacaoEnum;
+using Biblioteca.Negocio.Validacoes.Usuarios;
 using FluentValidation;
 
 
@@ -8,19 +11,18 @@ namespace Biblioteca._2._0.Domain.ValidacoesNegocio.Usuarios
     public class ServicoUsuarioValidador : AutenticacaoValidador
     {
 
+    
+        private readonly IUsuarioRepositorio _usuarioRepositorio;
 
-        private ApplicationDbContext _Contexto;
-
-        private ApplicationDbContext Contexto
-        {
-            get
-            {
-                return ApplicationDbContext.NovaInstancia();
-            }
-        }
-
+    
         public ServicoUsuarioValidador()
         {
+
+        }
+
+        public ServicoUsuarioValidador(IUsuarioRepositorio usuarioRepositorio)
+        {
+            _usuarioRepositorio = usuarioRepositorio;
         }
 
         public InconsistenciaDeValidacaoTipado<Usuario> ValideCadastroImpeditivo(Usuario dados)
@@ -37,27 +39,22 @@ namespace Biblioteca._2._0.Domain.ValidacoesNegocio.Usuarios
 
             RuleFor(x => x.Nome)
                 .Must(x => ExisteNomeCadastrado(dados.Nome))
-                .TipoValidacao(Negocio.Enumeradores.Validacoes.TipoValidacaoEnum.IMPEDITIVA)
+                .TipoValidacao(TipoValidacaoEnum.IMPEDITIVA)
                 .WithMessage("Nome Já Cadastrado no Sistema");
 
             RuleFor(x => x.Email)
                 .Must(x => ExisteEmailJaCadastrado(dados.Email))
-                .TipoValidacao(Negocio.Enumeradores.Validacoes.TipoValidacaoEnum.IMPEDITIVA)
+                .TipoValidacao(TipoValidacaoEnum.IMPEDITIVA)
                 .WithMessage("Já existe um cadastro com esse E-Mail");
         }
 
 
         private bool ExisteEmailJaCadastrado(string email)
         {
-            bool existe = false;
-
-            using (IUsuarioRepositorio servico = new UsuarioRepositorioImpl(Contexto))
-            {
-                var lista = servico.ObtenhaDbSet().AsNoTracking().ToList();
-
-                existe = lista.Any(x => x.Email == email);
-            }
-
+            bool existe = false;                     
+            var lista = _usuarioRepositorio.ObtenhaTodos().ToList(); 
+            existe = lista.Any(x => x.Email == email);
+            
             return existe;
         }
 
@@ -65,17 +62,11 @@ namespace Biblioteca._2._0.Domain.ValidacoesNegocio.Usuarios
         {
             bool existe = false;
 
-            using (IUsuarioRepositorio servico = new UsuarioRepositorioImpl(Contexto))
-            {
-                var lista = servico.ObtenhaDbSet().AsNoTracking().ToList();
+            var lista = _usuarioRepositorio.ObtenhaTodos().ToList();
 
-                existe = lista.Any(x => x.Nome == nome);
-            }
-
-
+            existe = lista.Any(x => x.Nome == nome);
+            
             return existe;
         }
-
-
     }
 }

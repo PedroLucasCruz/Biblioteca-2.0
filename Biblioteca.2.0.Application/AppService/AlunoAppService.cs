@@ -26,7 +26,7 @@ namespace Biblioteca._2._0.Application.ServiceAppService
             if(!dto.IsValid()) return dto.RetornarInconsistencia();
 
             var resposta = _servicoAluno.AtualizeAluno(dto.ObterEntidade());
-            return null;
+            return resposta;
         }
 
         public InconsistenciaDeValidacaoTipado<Aluno> CadastreAluno(AlunoDto dto)

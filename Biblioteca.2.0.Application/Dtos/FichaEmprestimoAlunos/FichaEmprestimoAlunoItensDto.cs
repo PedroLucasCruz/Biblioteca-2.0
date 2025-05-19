@@ -1,11 +1,6 @@
 ﻿using Biblioteca._2._0.Domain.Entidades;
-using Biblioteca.Negocio.Entidades.FichaEmprestimos;
-using Biblioteca.Negocio.Enumeradores.FichaEmprestimoAlunos;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Biblioteca._2._0.Domain.Enumeradores.FichaEmprestimoAlunos;
+
 
 namespace Biblioteca._2._0.Application.Dtos.FichaEmprestimoAlunos
 {

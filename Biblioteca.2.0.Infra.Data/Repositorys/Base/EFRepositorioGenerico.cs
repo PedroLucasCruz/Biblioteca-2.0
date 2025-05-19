@@ -78,6 +78,5 @@ namespace Biblioteca._2._0.Infra.Data.Repositorys.Base
         {
             return _DbSet.ToList();
         }
-
     }
 }

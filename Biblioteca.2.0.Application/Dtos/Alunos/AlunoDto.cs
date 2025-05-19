@@ -15,7 +15,7 @@ namespace Biblioteca._2._0.Application.Dtos.Alunos
 
         //private InconsistenciaDeValidacao _InconsistenciaDeValidacao;
 
-        private InconsistenciaDeValidacaoTipado<Aluno> _InconsistenciaDeValidacao;
+        public InconsistenciaDeValidacaoTipado<Aluno> _InconsistenciaDeValidacao;
         public AlunoDto()
         {
             _Conversor = new Conversor<AlunoDto, Aluno>();

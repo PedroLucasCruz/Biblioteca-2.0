@@ -3,6 +3,7 @@ using Biblioteca._2._0.Domain.Interfaces.Repositories;
 using Biblioteca._2._0.Domain.Interfaces.Service;
 using Biblioteca._2._0.Domain.ValidacoesNegocio.Livros;
 using Biblioteca._2._0.Extension.BaseValidacoes;
+using Biblioteca._2._0.Extension.Utils;
 using Microsoft.Extensions.Logging;
 
 
@@ -13,11 +14,12 @@ namespace Biblioteca._2._0.Domain.Services
 
         private ILogger<ServicoLivroImpl> _logger;
         private readonly ILivroRepositorio _livroRepositorio;
-
-        public ServicoLivroImpl(ILogger<ServicoLivroImpl> logger, ILivroRepositorio livroRepositorio)
+        private readonly IServicoUsuarioImplRepositorio _servicoUsuarioImplRepositorio; 
+        public ServicoLivroImpl(ILogger<ServicoLivroImpl> logger, ILivroRepositorio livroRepositorio, IServicoUsuarioImplRepositorio servicoUsuarioImplRepositorio)
         {
             _logger = logger;
             _livroRepositorio = livroRepositorio;
+            _servicoUsuarioImplRepositorio = servicoUsuarioImplRepositorio;
         }
 
         public InconsistenciaDeValidacaoTipado<Livro> Atualizar(Livro livro)
@@ -26,11 +28,10 @@ namespace Biblioteca._2._0.Domain.Services
 
             _logger.LogInformation("Serviço 'Serviço de Livro': Executando ajuste nos dados para atualização.");
 
-            var entidade = _livroRepositorio.ObtenhaPorId(livro.Id); //base._DbSet.AsNoTracking().Where(x => x.Id == livro.Id).FirstOrDefault();
+            var entidade = _livroRepositorio.ObtenhaPorId(livro.Id); 
        
             entidade.DataAtualizacao = DateTime.Now;
       
-
             try
             {
                 _logger.LogInformation("Serviço 'Serviço de Livro': Executando a atualização no banco de dados.");
@@ -46,8 +47,6 @@ namespace Biblioteca._2._0.Domain.Services
                 _logger.LogError("Serviço 'Serviço de Livro': Erro ao atualizar o Livro.", ex);
                 return new InconsistenciaDeValidacaoTipado<Livro>() { ObjetoRetorno = null, Mensagem = "Erro na atualização do Livro" };
             }
-
-
         }
 
         public InconsistenciaDeValidacaoTipado<Livro> Cadastrar(Livro livro)
@@ -91,13 +90,10 @@ namespace Biblioteca._2._0.Domain.Services
 
         public InconsistenciaDeValidacaoTipado<Livro> Deletar(int Id)
         {
-            bool livroEmUso = false;
 
             _logger.LogInformation("Serviço 'Serviço de Livro': Iniciando busca por possíveis relacionamentos do Livro");
-            using (IRepositorioGenerico<FichaEmprestimoAluno> servico = new EFRepositorioGenerico<FichaEmprestimoAluno>(_contexto))
-            {
-                livroEmUso = servico.ObtenhaDbSet().AsNoTracking().Any(x => x.FichaEmprestimoItens.Any(x => x.Livro.Id == Id || x.LivroId == Id));
-            }
+                       
+            var  livroEmUso = _servicoUsuarioImplRepositorio.LivroEmUso(Id);           
 
             if (!livroEmUso)
             {
@@ -151,7 +147,8 @@ namespace Biblioteca._2._0.Domain.Services
                 _logger.LogInformation("Serviço 'Serviço de Livro': Iniciando busca dos Livros");
                 IList<Livro> livros = new List<Livro>();
 
-                var resultado = base.ObtenhaDbSet().Include(x => x.Editora).Include(a => a.Autores).ToList();
+                var resultado = _livroRepositorio.RetornarLivrosComAutores();
+
                 if (!resultado.PossuiValor() && !resultado.PossuiLinhas())
                 {
                     _logger.LogInformation("Serviço 'Serviço de Livro': Livros não encontrados");

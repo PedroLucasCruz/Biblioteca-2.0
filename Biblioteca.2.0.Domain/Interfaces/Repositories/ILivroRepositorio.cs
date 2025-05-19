@@ -12,5 +12,6 @@ namespace Biblioteca._2._0.Domain.Interfaces.Repositories
     {
         Livro ConsultarLivroPorIdEditar(int idEditora);
         void CadastrarLivros(IList<Livro> livros);
+        List<Livro> RetornarLivrosComAutores();
     }
 }

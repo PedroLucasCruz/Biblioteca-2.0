@@ -1,25 +1,21 @@
-﻿//using Biblioteca.Negocio.Entidades;
-//using Microsoft.EntityFrameworkCore;
-//using System;
-//using System.Collections.Generic;
-//using System.Linq;
-//using System.Text;
-//using System.Threading.Tasks;
+﻿using Biblioteca._2._0.Domain.Entidades;
+using Microsoft.EntityFrameworkCore;
 
-//namespace Biblioteca._2._0.Infra.Data.Interface
-//{
-//    public interface IRepositorioGenerico<T> : IDisposable where T : EntidadeBase
-//    {
-//        IList<T> ObtenhaTodos();
 
-//        T ObtenhaPorId(int Id);
+namespace Biblioteca._2._0.Infra.Data.Interface
+{
+    public interface IRepositorioGenerico<T> : IDisposable where T : EntidadeBase
+    {
+        IList<T> ObtenhaTodos();
 
-//        T Cadastre(T Entidade);
+        T ObtenhaPorId(int Id);
 
-//        T Altere(T Entidade);
+        T Cadastre(T Entidade);
 
-//        bool Delete(int Id);
+        T Altere(T Entidade);
 
-//        DbSet<T> ObtenhaDbSet();
-//    }
-//}
+        bool Delete(int Id);
+
+        DbSet<T> ObtenhaDbSet();
+    }
+}

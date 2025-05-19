@@ -3,6 +3,7 @@ using Biblioteca._2._0.Domain.Interfaces.Repositories;
 using Biblioteca._2._0.Domain.Interfaces.Service;
 using Biblioteca._2._0.Infra.Data.Context;
 using Biblioteca._2._0.Infra.Data.Repositorys.Base;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,5 +18,11 @@ namespace Biblioteca._2._0.Infra.Data.Repositorys
         {
 
         }
+
+        public bool LivroEmUso(int Id)
+        {
+          return  _DbSet.AsNoTracking().Any(x => x.FichaEmprestimoItens.Any(x => x.Livro.Id == Id));        
+        }
+
     }
 }
